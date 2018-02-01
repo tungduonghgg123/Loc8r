@@ -4,8 +4,7 @@ var gracefulShutdown;
 var dbURIlog = 'mongodb://localhost/Loc8rLog';
 var logDB = mongoose.createConnection(dbURIlog);
 if (process.env.NODE_ENV === 'production') {
-        // dbURI = 'mongodb://admin:admin@ds119088.mlab.com:19088/tungduongloc8r';
-    dbURI = process.env.MONGOLAB_URI;
+    dbURI = 'mongodb://admin:admin@ds119088.mlab.com:19088/tungduongloc8r';
 
 }
 mongoose.connect(dbURI);
