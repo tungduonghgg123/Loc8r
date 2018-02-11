@@ -1,47 +1,38 @@
-// var request= require('request')
-// var apiOptions = {
-//     server : "http://localhost:3000"
-
-// };
-// if (process.env.NODE_ENV === 'production') {
-//     apiOptions.server= ""
-// }
-/*GET home page*/
-module.exports.homeList=function(req, res){
-    res.render('locations-list',{
-        title: 'Loc8r Find places to work with wifi !!',
+/* GET 'home' page */
+module.exports.homelist = function(req, res) {
+    res.render('locations-list', {
+        title: 'Loc8r - find a place to work with wifi',
         pageHeader: {
             title: 'Loc8r',
-            strapline: 'Find places to work with wifi near you!!',
-            
+            strapline: 'Find places to work with wifi near you!'
         },
         sidebar: "Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you're looking for.",
         locations: [{
             name: 'Starcups',
-            address: '125 Low Street, Reading, RG6 1PS',
+            address: '125 High Street, Reading, RG6 1PS',
             rating: 3,
-            facilities: ['Hot drinks', 'Cocacola', 'Premium wifi'],
+            facilities: ['Hot drinks', 'Food', 'Premium wifi'],
             distance: '100m'
         }, {
             name: 'Cafe Hero',
             address: '125 High Street, Reading, RG6 1PS',
             rating: 4,
-            facilities: ['Hot drinks', 'Food', 'Poor wifi'],
+            facilities: ['Hot drinks', 'Food', 'Premium wifi'],
             distance: '200m'
         }, {
             name: 'Burger Queen',
-            address: '125 Large Street, Reading, RG6 1PS',
+            address: '125 High Street, Reading, RG6 1PS',
             rating: 2,
             facilities: ['Food', 'Premium wifi'],
             distance: '250m'
         }]
-    
     });
-}
-/*GET Location Info page*/
-module.exports.locationInfo=function(req, res){
-    res.render('location-info',{
-        title: 'Location Info',
+};
+
+/* GET 'Location info' page */
+module.exports.locationInfo = function(req, res) {
+    res.render('location-info', {
+        title: 'Starcups',
         pageHeader: {
             title: 'Starcups'
         },
@@ -84,10 +75,15 @@ module.exports.locationInfo=function(req, res){
                 reviewText: 'It was okay. Coffee wasn\'t great, but the wifi was fast.'
             }]
         }
+    });
+};
 
-});
-}
-/*GET addReview page*/
-module.exports.addReview=function(req, res){
-    res.render('location-review-form',{title: 'Review' });
-}
+/* GET 'Add review' page */
+module.exports.addReview = function(req, res) {
+    res.render('location-review-form', {
+        title: 'Review Starcups on Loc8r',
+        pageHeader: {
+            title: 'Review Starcups'
+        }
+    });
+};
