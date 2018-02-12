@@ -7,7 +7,7 @@ var sendJSONresponse = function(res, status, content) {
 };
 
 var theEarth = (function() {
-  var earthRadius = 6371000; // km, miles is 3959
+  var earthRadius = 6371; // km, miles is 3959
 
   var getDistanceFromRads = function(rads) {
     return parseFloat(rads * earthRadius);
@@ -37,7 +37,7 @@ module.exports.locationsListByDistance = function(req, res) {
     maxDistance: theEarth.getRadsFromDistance(maxDistance),
     num: 10
   };
-  if (!lng || !lat || !maxDistance) {
+  if ((!lng && lng!==0) || (!lat && lat!==0) || ! maxDistance) {
     console.log('locationsListByDistance missing params');
     sendJSONresponse(res, 404, {
       "message": "lng, lat and maxDistance query parameters are all required"
@@ -72,44 +72,7 @@ var buildLocationList = function(req, res, results, stats) {
   });
   return locations;
 };
-// module.exports.locationsListByDistance = function(req, res) {
-//   var lng = parseFloat(req.query.lng);
-//   var lat = parseFloat(req.query.lat);
-//   var maxDistance = parseFloat(req.query.maxDistance);
-//   var point = {
-//       type: "Point",
-//       coordinates: [lng, lat]
-//   };
-//   var geoOptions = {
-//       spherical: true,
-//       maxDistance: maxDistance,
-//       num: 10
-//   };
-//   if ((!lng && lng!==0) || (!lat && lat!==0) || !maxDistance) {
-//       sendJSONresponse(res, 404, {
-//           "message": "lng and lat and maxDistance query parameters are required"
-//       });
-//       return;
-//   }
-//   Loc.geoNear(point, geoOptions, function(err, results, stats) {
-//       var locations = [];
-//       if (err) {
-//         sendJSONresponse(res, 404, err);
-//       } else {
-//           results.forEach(function(doc) {
-//               locations.push({
-//                   distance: doc.dis/1000,
-//                   name: doc.obj.name,
-//                   address: doc.obj.address,
-//                   rating: doc.obj.rating,
-//                   facilities: doc.obj.facilities,
-//                   _id: doc.obj._id
-//               });
-//           });
-//           sendJSONresponse(res, 200, locations);
-//       }
-//   });
-// };
+
 /* GET a location by the id */
 module.exports.locationsReadOne = function(req, res) {
   console.log('Finding location details', req.params);
