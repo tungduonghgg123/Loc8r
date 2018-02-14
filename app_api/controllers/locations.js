@@ -61,8 +61,10 @@ module.exports.locationsListByDistance = function(req, res) {
 var buildLocationList = function(req, res, results, stats) {
   var locations = [];
   results.forEach(function(doc) {
+    // console.log(doc.dis);
     locations.push({
-      distance: theEarth.getDistanceFromRads(doc.dis),
+      distance: doc.dis,
+      // distance: theEarth.getDistanceFromRads(doc.dis),
       name: doc.obj.name,
       address: doc.obj.address,
       rating: doc.obj.rating,
@@ -154,6 +156,8 @@ module.exports.locationsUpdateOne = function(req, res) {
           sendJSONresponse(res, 400, err);
           return;
         }
+        location.coords = [parseFloat(req.body.lng), parseFloat(req.body.lat)];
+
         location.name = req.body.name;
         location.address = req.body.address;
         location.facilities = req.body.facilities.split(",");

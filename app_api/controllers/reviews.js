@@ -37,11 +37,13 @@ var doAddReview = function(req, res, location) {
     location.reviews.push({
       author: req.body.author,
       rating: req.body.rating,
-      reviewText: req.body.reviewText
+      reviewText: req.body.reviewText,
+      timestamp: Date.now
     });
     location.save(function(err, location) {
       var thisReview;
       if (err) {
+        console.log(err);
         sendJSONresponse(res, 400, err);
       } else {
         updateAverageRating(location._id);
@@ -117,6 +119,7 @@ module.exports.reviewsUpdateOne = function(req, res) {
             thisReview.author = req.body.author;
             thisReview.rating = req.body.rating;
             thisReview.reviewText = req.body.reviewText;
+            
             location.save(function(err, location) {
               if (err) {
                 sendJSONresponse(res, 404, err);
@@ -155,16 +158,7 @@ module.exports.reviewsReadOne = function(req, res) {
             return;
           }
           if (location.reviews && location.reviews.length > 0) {
-		
-  //           review = location.reviews.filter(function(review){
-  //             console.log(review)
-	// 	return review.id === req.params.reviewid;
-  // })[0];
-            console.log('nah')
-            console.log(location.reviews.filter(function(el){
-              console.log(el.id);
-              return el.id === req.params.reviewid
-            }))
+            review = location.reviews.id(req.params.reviewid);
             if (!review) {
               sendJSONresponse(res, 404, {
                 "message": "reviewid not found"
