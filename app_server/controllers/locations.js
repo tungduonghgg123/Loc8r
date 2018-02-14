@@ -3,10 +3,11 @@ var apiOptions = {
   server : "http://localhost:4000"
 };
 if (process.env.NODE_ENV === 'production') {
-  apiOptions.server = "https://immense-bastion-16917.herokuapp.com/";
+  apiOptions.server = "https://immense-bastion-16917.herokuapp.com";
 }
 var renderHomepage = function(req, res, responseBody){
     var message;
+    console.log(responseBody);
     if(!(responseBody instanceof Array)) {
         message = 'API lookup error!';
         responseBody = [];
@@ -42,6 +43,7 @@ module.exports.homelist = function(req, res) {
         }
     }
     request(requestOptions, function(err, response, body) {
+        console.log(requestOptions.url);
         var i, data;
         data = body;
         if(response.statusCode ===200 && data.length){
