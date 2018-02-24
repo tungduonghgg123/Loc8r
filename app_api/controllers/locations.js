@@ -28,17 +28,19 @@ module.exports.locationsListByDistance = function(req, res) {
   var lng = parseFloat(req.query.lng);
   var lat = parseFloat(req.query.lat);
   var maxDistance = parseFloat(req.query.maxDistance);
+  console.log(maxDistance);
   var point = {
     type: "Point",
     coordinates: [lng, lat]
   };
   var geoOptions = {
     spherical: true,
-    maxDistance: theEarth.getRadsFromDistance(maxDistance),
+    // maxDistance: theEarth.getRadsFromDistance(maxDistance),
+    maxDistance: maxDistance,
     num: 10
   };
   if ((!lng && lng!==0) || (!lat && lat!==0) || ! maxDistance) {
-    console.log('locationsListByDistance missing params');
+    // console.log('locationsListByDistance missing params');
     sendJSONresponse(res, 404, {
       "message": "lng, lat and maxDistance query parameters are all required"
     });
@@ -46,8 +48,8 @@ module.exports.locationsListByDistance = function(req, res) {
   }
   Loc.geoNear(point, geoOptions, function(err, results, stats) {
     var locations;
-    console.log('Geo Results', results);
-    console.log('Geo stats', stats);
+    // console.log('Geo Results', results);
+    // console.log('Geo stats', stats);
     if (err) {
       console.log('geoNear error:', err);
       sendJSONresponse(res, 404, err);
@@ -63,7 +65,7 @@ var buildLocationList = function(req, res, results, stats) {
   results.forEach(function(doc) {
     // console.log(doc.dis);
     locations.push({
-      distance: doc.dis,
+      distance: doc.dis/1000,
       // distance: theEarth.getDistanceFromRads(doc.dis),
       name: doc.obj.name,
       address: doc.obj.address,
