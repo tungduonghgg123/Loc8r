@@ -10,7 +10,7 @@ var locationListCtrl = function ($scope, loc8rData, geolocation) {
         $scope.message = "Searching for nearby places";
         loc8rData.locationByCoords(lat, lng)
           .success(function(data) {
-            $scope.message = data.length > 0 ? "" : "Your location is, lat:"+lat+" & "+"lng"+lng+" You are being watched";
+            $scope.message = data.length > 0 ? "" : "No location found nearby!";
             $scope.data = { locations: data };
           })
           .error(function (e) {
@@ -63,7 +63,7 @@ var ratingStars = function () {
 var loc8rData = function ($http) {
     var locationByCoords = function (lat, lng) {
         
-        return $http.get('/api/locations?lng='+ lng + '&lat=' + lat + '&maxDistance=20000' );
+        return $http.get('/api/locations?lng='+ lng + '&lat=' + lat + '&maxDistance=200000' );
     }
     return {
         locationByCoords : locationByCoords
