@@ -28,7 +28,6 @@ module.exports.locationsListByDistance = function(req, res) {
   var lng = parseFloat(req.query.lng);
   var lat = parseFloat(req.query.lat);
   var maxDistance = parseFloat(req.query.maxDistance);
-  console.log(maxDistance);
   var point = {
     type: "Point",
     coordinates: [lng, lat]
@@ -79,7 +78,7 @@ var buildLocationList = function(req, res, results, stats) {
 
 /* GET a location by the id */
 module.exports.locationsReadOne = function(req, res) {
-  console.log('Finding location details', req.params);
+  // console.log('Finding location details', req.params);
   if (req.params && req.params.locationid) {
     Loc
       .findById(req.params.locationid)
@@ -94,7 +93,7 @@ module.exports.locationsReadOne = function(req, res) {
           sendJSONresponse(res, 404, err);
           return;
         }
-        console.log(location);
+        // console.log(location);
         sendJSONresponse(res, 200, location);
       });
   } else {
