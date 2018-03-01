@@ -10,7 +10,7 @@ var locationListCtrl = function ($scope, loc8rData, geolocation) {
         $scope.message = "Searching for nearby places";
         loc8rData.locationByCoords(lat, lng)
           .success(function(data) {
-            $scope.message = data.length > 0 ? "" : "No location found nearby!";
+            $scope.message = data.length > 0 ? "" : "Your location is, lat:"+lat+" & "+"lng"+lng+" You are being watched";
             $scope.data = { locations: data };
           })
           .error(function (e) {
