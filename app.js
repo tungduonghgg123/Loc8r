@@ -67,7 +67,7 @@ app.use(passport.initialize());
 app.use('/users', users);
 app.use('/api', routesApi);
 app.use(function (req, res) {
-    res.sendfile(path.join(__dirname, 'app_client', 'index.html'));
+    res.sendFile(path.join(__dirname, 'app_client', 'index.html'));
 })
 
 // error handlers

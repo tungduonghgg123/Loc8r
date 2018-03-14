@@ -12,6 +12,7 @@
         vm.logout = function () {
             authentication.logout();
             $location.path('/');
+            location.reload(); //Quang ba dao
         };
     }
 })();
